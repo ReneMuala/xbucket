@@ -112,7 +112,7 @@ public:
 };
 
 enum meta_type { charset, author, viewport };
-static constexpr std::string meta_type_strs[] = {
+static constexpr const char *meta_type_strs[] = {
     "charset",
     "author",
     "viewport",
@@ -148,17 +148,70 @@ public:
   operator std::string() const { return content; }
 };
 
-template <const_string value = "None", const_string inject="">
-class h1 : body_element {
+// namespace prop {
+// template <const_string value = "None"> class _class {
+//   public:
+//    val = value;
+//   _class(){
 
+//   }
+// };
+// } // namespace prop
+
+#define props(SPACE_SEPARATED_PROPS) #SPACE_SEPARATED_PROPS
+///! class name
+#define _class(NAME) "class=\"" #NAME "\""
+#define _id(IT) "id=\"" #IT "\""
+// template <size_t N, typename... children>
+// constexpr const_string<N> props(children...) {
+//   return (children(), ...);
+// }
+
+template <typename... children> class h1 : body_element {
 public:
   std::string &content;
   h1(std::string &content) : content(content) {
-    block_tag it("h1", content, inject.c_str());
-    content += value.c_str();
+    block_tag it("h1", content);
+    (children(content), ...);
   }
-
   operator std::string() const { return content; }
 };
+
+#define CRETATE_ATTRIBUTE_COMPONENT(NAME)                                      \
+  template <const_string value = "None"> class $##NAME : body_element {        \
+  public:                                                                      \
+    std::string &content;                                                      \
+    std::map<std::string, std::string> pairs;                                  \
+    $##NAME(std::string &content) : content(content) {                         \
+      content.insert(content.rfind(">"),                                       \
+                     std::string(" " #NAME "=\"") + value.c_str() + "\"");     \
+    }                                                                          \
+    operator std::string() const { return content; }                           \
+  };
+
+CRETATE_ATTRIBUTE_COMPONENT(class)
+CRETATE_ATTRIBUTE_COMPONENT(id)
+
+template <const_string _text> class text : body_element {
+public:
+  std::string &content;
+  text(std::string &content) : content(content) { content += _text.c_str(); }
+  operator std::string() const { return content; }
+};
+
+// BASIC_BLOCK_COMPONENT(h1);
+// BASIC_BLOCK_COMPONENT(h2);
+// BASIC_BLOCK_COMPONENT(h3);
+// BASIC_BLOCK_COMPONENT(h4);
+// BASIC_BLOCK_COMPONENT(h5);
+// BASIC_BLOCK_COMPONENT(h6);
+// BASIC_BLOCK_COMPONENT(p);
+// BASIC_BLOCK_COMPONENT(b);
+// BASIC_BLOCK_COMPONENT(strong);
+// BASIC_BLOCK_COMPONENT(i);
+// BASIC_BLOCK_COMPONENT(em);
+// BASIC_BLOCK_COMPONENT(div_);
+// BASIC_BLOCK_COMPONENT(span);
+// BASIC_BLOCK_COMPONENT(script);
 
 } // namespace static_html

@@ -1,10 +1,11 @@
-#include <cstring>
-#include <iostream>
-#include <sqlite_orm/sqlite_orm.h>
-#include "model/user.hpp"
 #include "model/bucket.hpp"
+#include "model/user.hpp"
 #include "service/user.hpp"
 #include "view/index.hpp"
+#include <cstring>
+#include <httplib.h>
+#include <iostream>
+#include <sqlite_orm/sqlite_orm.h>
 
 using namespace sqlite_orm;
 
@@ -16,7 +17,14 @@ int main(int argc, char** argv) {
     service::User user_serive(storage);
 
     user_serive.get_all();
-    std::cout << view::index();
+
+    httplib::Server server;
+
+    server.Get("/", [](const httplib::Request &, httplib::Response &res) {
+      res.set_content((std::string)view::index(), "text/html");
+    });
+
+    server.listen("0.0.0.0", 80);
     // storage.remove_all<User>();
     // storage.remove_all<Bucket>();
     // auto user_id = storage.insert(User{
