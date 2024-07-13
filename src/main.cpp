@@ -6,6 +6,7 @@
 #include <httplib.h>
 #include <iostream>
 #include <sqlite_orm/sqlite_orm.h>
+#include <stdexcept>
 
 using namespace sqlite_orm;
 
@@ -23,6 +24,71 @@ int main(int argc, char** argv) {
     server.Get("/", [](const httplib::Request &, httplib::Response &res) {
       res.set_content((std::string)view::index(), "text/html");
     });
+    using namespace hyper::css;
+    hyper::css::builder css;
+    css("h1")
+            << font_family("Arial")
+            << font_size("96px")
+            << align_content("center")
+            << color("blue")
+            << (std::pair<std::string, std::string>){"my-prop", "my_value"};
+
+    hyper::js::builder js;
+
+    js << "alert('hello world')";
+
+    server.Get("/user/:name", [&css,&js](const httplib::Request & req, httplib::Response & res){
+        using namespace hyper;
+        res.set_content(
+        html<
+            head<>,
+            body<
+                h1<
+                    text<"Hello ">,$<"name">
+                >,
+                p<
+                    text<"example">
+                >
+            >
+        >({{"name", req.path_params.at("name")}}) << css << js << htmx2, "text/html");
+    });
+
+    server.Get("/about/", [](const httplib::Request & req, httplib::Response & res){
+        using namespace hyper;
+        std::string result;
+           css::builder css;
+           css("h1") << font_size("12px");
+           css("p") << color("red");
+           js::builder js;
+           js << "some_func= ()=> undefined";
+        res.set_content(html<
+            head<>,
+            body<
+                h1<
+                    text<"About us">
+                >,
+                p<
+                    text<"We are the creators of Hyper">
+                >
+            >
+        >()<< css << js, "text/html");
+    });
+
+    server.Get("/use3r/:name", [&css,&js](const httplib::Request & req, httplib::Response & res){
+        using namespace hyper;
+        res.set_content(
+        html<
+            head<>,
+            body<
+                h1<
+                    text<"Hello ">,$<"name">
+                >,
+                p<
+                    text<"example">
+                >
+            >
+        >({{"name", req.path_params.at("name")}}) << css << js, "text/html");
+    });
 
     server.listen("0.0.0.0", 80);
     // storage.remove_all<User>();
@@ -33,7 +99,7 @@ int main(int argc, char** argv) {
     //     .email = "alex@gmail.com",
     //     .password = "123456",
     // });
-    
+
     // storage.insert(Bucket{
     //     .id = 0,
     //     .name = "Bucket 1",
@@ -56,6 +122,6 @@ int main(int argc, char** argv) {
     //         std::cout << "Bucket: " << bucket.name << std::endl;
     //     }
     // }
-    
+
     return 0;
 }

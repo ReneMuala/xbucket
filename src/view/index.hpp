@@ -18,6 +18,7 @@ inline std::string index() {
                     h1<$id<"de">, $class<"something">,
                          text<"hello ">, $<"name">
                          >,
+                    p<text<"My text">>,
                     comment<
                          text<"This is a comment">
                          >,
@@ -51,7 +52,7 @@ inline std::string index() {
                     >
                >
           >{
-               {"name", name}
+               // {"name", name}
           };
 }
 
