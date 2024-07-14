@@ -1,15 +1,15 @@
 add_rules("mode.debug", "mode.release", "plugin.compile_commands.autoupdate")
-add_requires("cpp-httplib", "opencv", "sqlite_orm", "sqlite3")
+add_requires("crow", "opencv", "sqlite_orm", "sqlite3")
 
 target("xbucket")
-    if(is_plat("windows")) then
-        set_languages("c++20")
-    else
-        set_languages("c++23")
-    end
-    set_kind("binary")
-    add_files("src/*.cpp")
-    add_packages("cpp-httplib","opencv", "sqlite_orm", "sqlite3")
+if (is_plat("windows")) then
+    set_languages("c++20")
+else
+    set_languages("c++23")
+end
+set_kind("binary")
+add_files("src/*.cpp", "src/view/*.cpp")
+add_packages("crow", "opencv", "sqlite_orm", "sqlite3")
 
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
@@ -79,4 +79,3 @@ target("xbucket")
 --
 -- @endcode
 --
-

@@ -1,6 +1,26 @@
 [
 {
-  "directory": "/Users/descartes/Documents/playground/cpp/xbucket",
-  "arguments": ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang", "-c", "-Qunused-arguments", "-target", "x86_64-apple-macos12.7", "-isysroot", "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++2b", "-framework", "Foundation", "-framework", "CoreFoundation", "-framework", "CoreGraphics", "-framework", "AppKit", "-framework", "OpenCL", "-framework", "Accelerate", "-framework", "CoreVideo", "-framework", "CoreMedia", "-framework", "VideoToolbox", "-framework", "Security", "-framework", "AudioToolbox", "-I", "/Users/descartes/.xmake/packages/c/cpp-httplib/0.15.3/fe8acca99c0649c38adc663f4adbe382/include", "-I", "/Users/descartes/.xmake/packages/o/opencv/4.10.0/f563cb1f25fa4f779d00f61b6f45d27b/include/opencv4", "-I", "/Users/descartes/.xmake/packages/f/ffmpeg/7.0/9a17db27a07a4ad58042e7c9c4d84926/include", "-I", "/Users/descartes/.xmake/packages/s/sqlite_orm/1.8.2/cb09c4c5222e4fa3b460d7ddb5b76e6f/include", "-I", "/opt/local/include", "-DNDEBUG", "-o", "build/.objs/xbucket/macosx/x86_64/release/src/main.cpp.o", "src/main.cpp"],
+  "directory": "/home/descartes/Documents/playground/cpp/xbucket",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++23", "-I", "/home/descartes/.xmake/packages/c/crow/2023.07.22/d3ec5c76dd0543ebbf0258f0585ec5c9/include", "-I", "/home/descartes/.xmake/packages/a/asio/1.30.2/c1047cd667c14a44bea718715a77a7f5/include", "-I", "/home/descartes/.xmake/packages/o/opencv/4.10.0/07fff2ddbc8647d392e888cc2a12d4a4/include/opencv4", "-I", "/home/descartes/.xmake/packages/f/ffmpeg/7.0/927a7605f9ef47db9de73f45b4a37225/include", "-I", "/usr/include/libdrm", "-I", "/home/descartes/.xmake/packages/s/sqlite_orm/1.8.2/1f8db91e3f1b469cb4a50633fce447af/include", "-DNDEBUG", "-o", "build/.objs/xbucket/linux/x86_64/release/src/router.cpp.o", "src/router.cpp"],
+  "file": "src/router.cpp"
+},
+{
+  "directory": "/home/descartes/Documents/playground/cpp/xbucket",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++23", "-I", "/home/descartes/.xmake/packages/c/crow/2023.07.22/d3ec5c76dd0543ebbf0258f0585ec5c9/include", "-I", "/home/descartes/.xmake/packages/a/asio/1.30.2/c1047cd667c14a44bea718715a77a7f5/include", "-I", "/home/descartes/.xmake/packages/o/opencv/4.10.0/07fff2ddbc8647d392e888cc2a12d4a4/include/opencv4", "-I", "/home/descartes/.xmake/packages/f/ffmpeg/7.0/927a7605f9ef47db9de73f45b4a37225/include", "-I", "/usr/include/libdrm", "-I", "/home/descartes/.xmake/packages/s/sqlite_orm/1.8.2/1f8db91e3f1b469cb4a50633fce447af/include", "-DNDEBUG", "-o", "build/.objs/xbucket/linux/x86_64/release/src/main.cpp.o", "src/main.cpp"],
   "file": "src/main.cpp"
+},
+{
+  "directory": "/home/descartes/Documents/playground/cpp/xbucket",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++23", "-I", "/home/descartes/.xmake/packages/c/crow/2023.07.22/d3ec5c76dd0543ebbf0258f0585ec5c9/include", "-I", "/home/descartes/.xmake/packages/a/asio/1.30.2/c1047cd667c14a44bea718715a77a7f5/include", "-I", "/home/descartes/.xmake/packages/o/opencv/4.10.0/07fff2ddbc8647d392e888cc2a12d4a4/include/opencv4", "-I", "/home/descartes/.xmake/packages/f/ffmpeg/7.0/927a7605f9ef47db9de73f45b4a37225/include", "-I", "/usr/include/libdrm", "-I", "/home/descartes/.xmake/packages/s/sqlite_orm/1.8.2/1f8db91e3f1b469cb4a50633fce447af/include", "-DNDEBUG", "-o", "build/.objs/xbucket/linux/x86_64/release/src/view/login.cpp.o", "src/view/login.cpp"],
+  "file": "src/view/login.cpp"
+},
+{
+  "directory": "/home/descartes/Documents/playground/cpp/xbucket",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++23", "-I", "/home/descartes/.xmake/packages/c/crow/2023.07.22/d3ec5c76dd0543ebbf0258f0585ec5c9/include", "-I", "/home/descartes/.xmake/packages/a/asio/1.30.2/c1047cd667c14a44bea718715a77a7f5/include", "-I", "/home/descartes/.xmake/packages/o/opencv/4.10.0/07fff2ddbc8647d392e888cc2a12d4a4/include/opencv4", "-I", "/home/descartes/.xmake/packages/f/ffmpeg/7.0/927a7605f9ef47db9de73f45b4a37225/include", "-I", "/usr/include/libdrm", "-I", "/home/descartes/.xmake/packages/s/sqlite_orm/1.8.2/1f8db91e3f1b469cb4a50633fce447af/include", "-DNDEBUG", "-o", "build/.objs/xbucket/linux/x86_64/release/src/view/index.cpp.o", "src/view/index.cpp"],
+  "file": "src/view/index.cpp"
+},
+{
+  "directory": "/home/descartes/Documents/playground/cpp/xbucket",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++23", "-I", "/home/descartes/.xmake/packages/c/crow/2023.07.22/d3ec5c76dd0543ebbf0258f0585ec5c9/include", "-I", "/home/descartes/.xmake/packages/a/asio/1.30.2/c1047cd667c14a44bea718715a77a7f5/include", "-I", "/home/descartes/.xmake/packages/o/opencv/4.10.0/07fff2ddbc8647d392e888cc2a12d4a4/include/opencv4", "-I", "/home/descartes/.xmake/packages/f/ffmpeg/7.0/927a7605f9ef47db9de73f45b4a37225/include", "-I", "/usr/include/libdrm", "-I", "/home/descartes/.xmake/packages/s/sqlite_orm/1.8.2/1f8db91e3f1b469cb4a50633fce447af/include", "-DNDEBUG", "-o", "build/.objs/xbucket/linux/x86_64/release/src/view/error.cpp.o", "src/view/error.cpp"],
+  "file": "src/view/error.cpp"
 }]
