@@ -3,7 +3,7 @@ add_requires("crow", "opencv", "sqlite_orm", "sqlite3")
 
 target("xbucket")
 if (is_plat("windows")) then
-    set_languages("c++20")
+    set_languages("c++23")
 else
     set_languages("c++23")
 end
