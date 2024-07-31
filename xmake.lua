@@ -8,7 +8,7 @@ else
     set_languages("c++23")
 end
 set_kind("binary")
-add_files("src/*.cpp", "src/view/*.cpp")
+add_files("src/*.cpp", "src/view/*.cpp", "src/controller/*.cpp")
 add_packages("crow", "opencv", "sqlite_orm", "sqlite3")
 
 --

@@ -1,7 +1,6 @@
 #pragma once
 
-namespace router {
+namespace server {
     void mount();
-
     void run();
 }
