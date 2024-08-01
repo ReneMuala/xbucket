@@ -30,10 +30,10 @@ struct bucket {
 static inline model::bucket from_json(const crow::json::rvalue &json) {
     return  model::bucket {
         .id = util::json::get_or<int>(json, "id", 0),
-        .super = util::json::get_or<std::optional<decltype(model::bucket::id)>>(json, "super", {}),
-        .name = util::json::get<std::string>(json, "name"),
-        .description = util::json::get<std::string>(json, "description"),
-        .user_id = util::json::get<int>(json, "user_id"),
+         .name = util::json::get<std::string>(json, "name"),
+         .description = util::json::get<std::string>(json, "description"),
+         .user_id = util::json::get<int>(json, "user_id"),
+        .super = util::json::get_or<std::optional<decltype(model::bucket::id)>>(json, "super", {})
     };
   }
 

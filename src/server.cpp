@@ -31,10 +31,10 @@ crow::App<crow::CookieParser, middleware::auth, Session> app{
 void mount_views() {
   controller::controller::routes["view"].push_back(controller::route_descr{
       .name = "home",
-      .description = "home page",
-      .auth = false,
-      .method = crow::HTTPMethod::Get,
       .route = "/",
+      .description = "home page",
+      .method = crow::HTTPMethod::Get,
+      .auth = false
   });
   CROW_ROUTE(app, "/").methods(crow::HTTPMethod::Get)(view::index);
 }
