@@ -50,6 +50,7 @@ public:
 
   std::vector<model::artifact> get_multipart_uploads(const crow::request &req) {
     std::vector<model::artifact> artifacts;
+    auto bucket_id = atoi(get_param(req, "bucket_id").c_str());
     crow::multipart::message file_message(req);
     for (const auto &part : file_message.part_map) {
       const auto &part_name = part.first;
@@ -65,7 +66,8 @@ public:
                                  " should have a file");
       }
       const std::string outfile_name = get_random_filename(
-          req.remote_ip_address + "." + std::to_string((int)time(NULL)),
+          req.remote_ip_address + "." + std::to_string(bucket_id) + "." +
+              std::to_string((int)time(NULL)),
           params_it->second);
 
       // Create a new file with the extracted file name and write file contents
@@ -79,11 +81,11 @@ public:
       out_file << part_value.body;
       out_file.close();
 
-      artifacts.push_back(model::artifact{
-          .name = part_name,
-          .filename = outfile_name,
-          .original_filename = params_it->second,
-          .bucket_id = atoi(get_param(req, "bucket_id").c_str())});
+      artifacts.push_back(
+          model::artifact{.name = part_name,
+                          .filename = outfile_name,
+                          .original_filename = params_it->second,
+                          .bucket_id = bucket_id});
     }
     return artifacts;
   }
