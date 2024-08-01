@@ -1,6 +1,6 @@
 #pragma once
 
 namespace server {
-    void mount();
-    void run();
-}
+void mount_views();
+void run();
+} // namespace server

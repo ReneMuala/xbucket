@@ -1,7 +1,7 @@
 #pragma once
 #include <crow/common.h>
-#include <crow/json.h>
 #include <crow/http_request.h>
+#include <crow/json.h>
 #include <list>
 #include <map>
 #include <string>
@@ -64,12 +64,22 @@ class controller {
 public:
   static std::map<std::string, std::list<route_descr>> routes;
 
-  static inline std::string get_param(const crow::request & request, const std::string name){
-    if (const char * value_c_str = request.url_params.get(name)){
-            return std::string(*value_c_str != '\0' ? value_c_str : "");
-        }
-        throw std::runtime_error("expected path param: " + name);
-        return "";
+  static inline std::string get_param(const crow::request &request,
+                                      const std::string name) {
+    if (const char *value_c_str = request.url_params.get(name)) {
+      return std::string(*value_c_str != '\0' ? value_c_str : "");
     }
+    throw std::runtime_error("expected path param: " + name);
+    return "";
+  }
+
+  static inline std::string get_param_or(const crow::request &request,
+                                         const std::string name,
+                                         const std::string &default_value) {
+    if (const char *value_c_str = request.url_params.get(name)) {
+      return std::string(*value_c_str != '\0' ? value_c_str : "");
+    }
+    return default_value;
+  }
 };
 } // namespace controller

@@ -2,7 +2,7 @@
 #include <string>
 
 namespace view {
-    constexpr const char css[] = R"CSS(
+constexpr const char SakuraCSS[] = R"CSS(
         /* Sakura.css v1.5.0
          * ================
          * Minimal css theme.
@@ -235,9 +235,9 @@ namespace view {
             border-radius: 5px;
         }
     )CSS";
-    std::string index();
-    std::string login();
-    std::string login_success();
-    std::string login_fail();
-    std::string error(const std::string & desc);
+std::string index();
+std::string login();
+std::string login_success();
+std::string login_fail();
+std::string error(const std::string &desc);
 } // namespace view
