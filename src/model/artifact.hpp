@@ -32,11 +32,11 @@ struct artifact {
 static inline model::artifact from_json(const crow::json::rvalue &json) {
     return  model::artifact {
         .id = util::json::get_or<int>(json, "id", 0),
-        .super = util::json::get_or<std::optional<decltype(model::artifact::id)>>(json, "super", {}),
         .name = util::json::get<std::string>(json, "name"),
         .filename = util::json::get<std::string>(json, "filename"),
         .original_filename = util::json::get<std::string>(json, "original_filename"),
         .bucket_id = util::json::get<int>(json, "bucket_id"),
+        .super = util::json::get_or<std::optional<decltype(model::artifact::id)>>(json, "super", {})
     };
   }
 
