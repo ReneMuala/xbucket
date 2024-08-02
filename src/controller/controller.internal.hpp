@@ -7,10 +7,29 @@
 #include <string>
 
 #define EMPTY ""
+
 #define controller_register_api_route_auth(_controller, _name, _route,         \
                                            _description, _method, _handler)    \
   controller::routes[#_controller].push_back(                                  \
       {_name, "/api/" #_controller _route, _description, _method, true});      \
+  CROW_ROUTE(app, "/api/" #_controller _route)                                 \
+      .name(_name)                                                             \
+      .CROW_MIDDLEWARES(app, middleware::auth)                                 \
+      .methods(_method)([this](const crow::request &req) {                     \
+        try {                                                                  \
+          return this->_handler(req);                                          \
+        } catch (std::runtime_error & e) {                                     \
+          crow::json::wvalue resp;                                             \
+          resp["error"] = e.what();                                            \
+          return crow::response{crow::status::BAD_REQUEST, resp};              \
+        }                                                                      \
+      });
+
+#define controller_register_api_route_auth_io(                                 \
+    _controller, _name, _route, _description, _method, _handler, _i, _o)       \
+  controller::routes[#_controller].push_back(                                  \
+      {_name, "/api/" #_controller _route, _description, _method, true, _i,    \
+       _o});                                                                   \
   CROW_ROUTE(app, "/api/" #_controller _route)                                 \
       .name(_name)                                                             \
       .CROW_MIDDLEWARES(app, middleware::auth)                                 \
@@ -40,6 +59,23 @@
         }                                                                      \
       });
 
+#define controller_register_api_route_io(                                      \
+    _controller, _name, _route, _description, _method, _handler, _i, _o)       \
+  controller::routes[#_controller].push_back(                                  \
+      {_name, "/api/" #_controller _route, _description, _method, false, _i,   \
+       _o});                                                                   \
+  CROW_ROUTE(app, "/api/" #_controller _route)                                 \
+      .name(_name)                                                             \
+      .methods(_method)([this](const crow::request &req) {                     \
+        try {                                                                  \
+          return this->_handler(req);                                          \
+        } catch (std::runtime_error & e) {                                     \
+          crow::json::wvalue resp;                                             \
+          resp["error"] = e.what();                                            \
+          return crow::response{crow::status::BAD_REQUEST, resp};              \
+        }                                                                      \
+      });
+
 namespace controller {
 
 struct route_descr {
@@ -48,6 +84,7 @@ struct route_descr {
   std::string description;
   crow::HTTPMethod method;
   bool auth;
+  std::optional<crow::json::wvalue> input_sample, output_sample;
 
   crow::json::wvalue to_json() const {
     crow::json::wvalue result;

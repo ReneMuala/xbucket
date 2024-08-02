@@ -17,6 +17,7 @@
 #include <crow/app.h>
 #include <cstddef>
 #include <cstdlib>
+#include <optional>
 
 using Session = crow::SessionMiddleware<crow::FileStore>;
 
@@ -29,13 +30,14 @@ crow::App<crow::CookieParser, middleware::auth, Session> app{
 };
 
 void mount_views() {
-  controller::controller::routes["view"].push_back(controller::route_descr{
-      .name = "home",
-      .route = "/",
-      .description = "home page",
-      .method = crow::HTTPMethod::Get,
-      .auth = false
-  });
+  controller::controller::routes["view"].push_back(
+      controller::route_descr{.name = "home",
+                              .route = "/",
+                              .description = "home page",
+                              .method = crow::HTTPMethod::Get,
+                              .auth = false,
+                              .input_sample = std::nullopt,
+                              .output_sample = std::nullopt});
   CROW_ROUTE(app, "/").methods(crow::HTTPMethod::Get)(view::index);
 }
 

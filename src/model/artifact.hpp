@@ -29,6 +29,17 @@ struct artifact {
     };
   }
 
+  static inline crow::json::wvalue to_json_sample() {
+    static auto wsample = crow::json::wvalue{{"name", "int?"},
+                                             {"super", "int?"},
+                                             {"name", "string"},
+                                             {"filename", "string"},
+                                             {"original_filename", "string"},
+                                             {"bucket_id", "int"}};
+    static auto sample = from_json(crow::json::load(wsample.dump())).to_json();
+    return sample;
+  }
+
 static inline model::artifact from_json(const crow::json::rvalue &json) {
     return  model::artifact {
         .id = util::json::get_or<int>(json, "id", 0),

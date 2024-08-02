@@ -30,14 +30,24 @@ template <typename S, typename... M> class artifact : public controller {
 public:
   artifact(crow::Crow<M...> &app, service::artifact<S> &service)
       : service(service), app(app) {
-    controller_register_api_route_auth(artifact, "read", EMPTY, "Read artifact",
-                                       "GET"_method, read);
+    controller_register_api_route_auth_io(
+        artifact, "read", EMPTY,
+        "Read artifact's metadata or download its file (if dl==true). (path: "
+        "id<int>, bucket_id<int>, "
+        "dl<bool?>)",
+        "GET"_method, read, {}, model::artifact::to_json_sample());
+    controller_register_api_route_auth_io(
+        artifact, "create", EMPTY,
+        "Create artifacts from multipart upload. "
+        "(path: bucket_id<int>)",
+        "POST"_method, create, {}, model::artifact::to_json_sample());
+    // controller_register_api_route_auth(artifact, "update", EMPTY,
+    //                                    "Update artifact", "PUT"_method,
+    //                                    update);
     controller_register_api_route_auth(
-        artifact, "create", EMPTY, "Create artifact", "POST"_method, create);
-    controller_register_api_route_auth(artifact, "update", EMPTY,
-                                       "Update artifact", "PUT"_method, update);
-    controller_register_api_route_auth(
-        artifact, "remove", EMPTY, "Remove artifact", "DELETE"_method, remove);
+        artifact, "remove", EMPTY,
+        "Remove artifact (path: id<int>, bucket_id<int>)", "DELETE"_method,
+        remove);
   }
 
   std::string get_random_filename(std::string prefix,

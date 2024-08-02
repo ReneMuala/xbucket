@@ -20,12 +20,12 @@ template <typename S, typename... M> class user : public controller {
 public:
   user(crow::Crow<M...> &app, service::user<S> &service)
       : service(service), app(app) {
-    controller_register_api_route_auth(
-        user, "read", EMPTY, "Read current user", crow::HTTPMethod::Get, read);
-    controller_register_api_route(user, "create", EMPTY, "Create a new user",
-                                  crow::HTTPMethod::Post, create);
-    controller_register_api_route_auth(user, "update", EMPTY, "Update current user",
-                                  "PUT"_method, update);
+    controller_register_api_route_auth_io(
+        user, "read", EMPTY, "Read current user", crow::HTTPMethod::Get, read, {}, model::user::to_json_sample());
+    controller_register_api_route_io(user, "create", EMPTY, "Create a new user",
+                                  crow::HTTPMethod::Post, create, model::user::from_json_sample(), model::user::to_json_sample());
+    controller_register_api_route_auth_io(user, "update", EMPTY, "Update current user",
+                                  "PUT"_method, update, model::user::from_json_sample(), model::user::to_json_sample());
     controller_register_api_route_auth(user, "delete", EMPTY, "Delete current user", "DELETE"_method,remove);
   }
 

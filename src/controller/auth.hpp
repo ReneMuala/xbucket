@@ -1,5 +1,6 @@
 #pragma once
 #include "../middleware/auth.hpp"
+#include "../model/auth.hpp"
 #include "../service/user.hpp"
 #include "../util/json.hpp"
 #include "controller.internal.hpp"
@@ -23,8 +24,9 @@ public:
   auth(crow::Crow<M...> &app, service::user<S> &service)
       : service(service), app(app) {
 
-    controller_register_api_route(auth, "login", "/login", "Session login",
-                                  "POST"_method, login);
+    controller_register_api_route_io(
+        auth, "login", "/login", "Session login", "POST"_method, login,
+        model::auth::from_json_sample(), model::user::to_json_sample());
     controller_register_api_route_auth(auth, "logout", "/logout",
                                        "Session logout", "POST"_method, logout);
   }

@@ -21,12 +21,16 @@ template <typename S, typename... M> class bucket : public controller {
 public:
   bucket(crow::Crow<M...> &app, service::bucket<S> &service)
       : service(service), app(app) {
-    controller_register_api_route_auth(
-        bucket, "read", EMPTY, "Read bucket", "GET"_method, read);
-    controller_register_api_route_auth(bucket, "create", EMPTY, "Create a new bucket",
-                                  "POST"_method, create);
-    controller_register_api_route_auth(bucket, "update", EMPTY, "Update a bucket",
-                                  "PUT"_method, update);
+    controller_register_api_route_auth_io(
+        bucket, "read", EMPTY, "Read bucket (path: id<int>)", "GET"_method,
+        read, {}, model::bucket::to_json_sample());
+    controller_register_api_route_auth_io(
+        bucket, "create", EMPTY, "Create a new bucket", "POST"_method, create,
+        model::bucket::from_json_sample(), model::bucket::to_json_sample());
+    controller_register_api_route_auth_io(
+        bucket, "update", EMPTY, "Update a bucket (path: id<int>)",
+        "PUT"_method, update, model::bucket::from_json_sample(),
+        model::bucket::to_json_sample());
     controller_register_api_route_auth(bucket, "remove", EMPTY, "Remove a bucket","DELETE"_method,remove);
   }
 
